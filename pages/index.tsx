@@ -1,19 +1,20 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { GetUserInfo, UserHandle, UserProfile, User } from '../components/user_profile'
+import { UserProfile, User } from '../components/user_profile'
 import styles from '../styles/Home.module.css'
-// import useSWR from 'swr' TODO
 
 export default function Home() {
   const [user, setUser] = useState({} as User);
-  let handle: UserHandle = { username: 'lectromoe' }
+  let handle: string = 'lectromoe'
 
   useEffect(() => {
     const fetchUser = async () => {
-      const user = await GetUserInfo(handle);
-      console.log(user);
+      let response = await fetch("/api/get_user", {
+        method: 'POST',
+        body: JSON.stringify(handle),
+      })
+      let user = await response.json();
       setUser(user);
     };
     fetchUser();
@@ -28,14 +29,12 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to the <Link href="api/hello.ts">Pentagon</Link>
+          Welcome to the <Link href="api/hello.ts">Pentagon</Link>, {user.name}
         </h1>
-
+        <h2> Your profile: </h2>
         <UserProfile {...user} />
+
       </main>
-
-
-
     </div>
   )
 }
