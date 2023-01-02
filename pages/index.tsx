@@ -1,24 +1,22 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { UserProfile, User } from '../components/user_profile'
+import { User } from '../components/user_profile'
 import styles from '../styles/Home.module.css'
+import { useRouter } from 'next/router'
 
 export default function Home() {
-  const [user, setUser] = useState({} as User);
-  let handle: string = 'lectromoe'
+  // const [user, setUser] = useState({} as User);
+  const [handle, setHandle] = useState('');
+  const router = useRouter()
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      let response = await fetch("/api/get_user", {
-        method: 'POST',
-        body: JSON.stringify(handle),
-      })
-      let user = await response.json();
-      setUser(user);
-    };
-    fetchUser();
-  }, [])
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    router.push("/profile/" + handle)
+  }
+  const handleChange = (e: any) => {
+    setHandle(e.target.value)
+  }
 
   return (
     <div className={styles.container}>
@@ -29,11 +27,16 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to the <Link href="api/hello.ts">Pentagon</Link>, {user.name}
+          Welcome to the <Link href="api/hello.ts">Pentagon</Link>
         </h1>
-        <h2> Your profile: </h2>
-        <UserProfile {...user} />
 
+        <h2>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="username">username: </label>
+            <input type="text" name="username" id="username" onChange={handleChange} />
+            <button type="submit">Go to your profile ➜</button>
+          </form>
+        </h2>
       </main>
     </div>
   )

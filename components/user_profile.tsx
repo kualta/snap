@@ -2,10 +2,10 @@ export type User = {
     name: string,
 }
 
-export const UserProfile = ({ name }: User) => {
+export const UserProfile = (user: User) => {
     return (
         <>
-            <h1>{name}</h1>
+            <h1>Name: {user.name}</h1>
         </>
     );
 }
