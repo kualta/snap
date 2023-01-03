@@ -34,9 +34,11 @@ export default function Page() {
       </Head>
 
       <main className={styles.main}>
-        <h2> Your profile: </h2>
+        <h2> User profile </h2>
         <UserProfile {...user} />
+        <Link href={'/'}>{`< Back Home`}</Link>
       </main>
+
     </div>
   )
 }
