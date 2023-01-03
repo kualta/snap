@@ -8,7 +8,7 @@ type User = {
 
 export default async function (req: NextApiRequest, res: NextApiResponse<User | string>) {
   let client = new Client(`${process.env.TWITTER_BEARER}`);
-  let username = JSON.parse(req.body);
+  let username = req.body;
 
   if (!username) {
     res.status(400).json('Invalid username')
