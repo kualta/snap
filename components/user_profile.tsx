@@ -2,10 +2,12 @@ import { User } from "./user";
 import Image from "next/image";
 
 export const UserProfile = (user: User) => {
+    if (!user.profile_image_url) return null;
+
     return (
         <>
             <Image
-                src={user.profile_image_url || ""}
+                src={user.profile_image_url}
                 width="100"
                 height="100"
                 alt={"profile image"}
