@@ -4,9 +4,11 @@ export default function RootLayout({ children }: {
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html data-theme="dark" lang="en">
             <head />
-            <body>{children}</body>
+            <body className="h-screen w-screen">
+                {children}
+            </body>
         </html>
     );
 }

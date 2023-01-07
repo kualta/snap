@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { User } from "../../../components/user";
-import { UserProfile } from "../../../components/user_profile";
+import UserProfile, { User } from "../../UserProfile";
 import { fetchUser } from "./page";
 
 export default function Page() {
@@ -29,9 +28,10 @@ export default function Page() {
     return (
         <div className="">
             <main className="">
-                <h2>User profile</h2>
                 <UserProfile {...user} />
-                <Link href={"/"}>{`< Back Home`}</Link>
+                <Link className="btn btn-outline" href={"/"}>
+                    {`< Back Home`}
+                </Link>
             </main>
         </div>
     );

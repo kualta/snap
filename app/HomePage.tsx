@@ -17,22 +17,30 @@ export default function HomePage() {
     };
 
     return (
-        <div className="roboto-mono text-stone-200 h-screen w-screen bg-[#101112]">
+        <div className="">
             <main className="">
                 <h1 className="">Pentagon</h1>
                 <h1>
                 </h1>
 
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="username" className="label">
+                        Username:
+                    </label>
                     <input
                         type="text"
                         name="username"
                         id="username"
+                        className="input input-bordered w-full max-w-xs"
                         onChange={handleChange}
                     />
                     <br />
-                    <Link href={`/profile/${handle}`}>{`Add >`}</Link>
+                    <Link
+                        className="btn btn-outline"
+                        href={`/profile/${handle}`}
+                    >
+                        {`Add User`}
+                    </Link>
                 </form>
             </main>
         </div>
