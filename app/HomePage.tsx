@@ -1,26 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import { User } from "./profile/[pid]/UserProfile";
+
+type CurrentUser = User;
 
 export default function HomePage() {
-    const [handle, setHandle] = useState("");
+    const [user, setUser] = useState();
+    const currentUser = createContext<CurrentUser | null>(null) // TODO
+    const [uid, setUid] = useState("");
     const router = useRouter();
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        router.push("/profile/" + handle);
+        if (!uid) return
+
+        router.push("/profile/" + uid);
     };
     const handleChange = (e: any) => {
-        setHandle(e.target.value);
+        setUid(e.target.value);
     };
 
     return (
         <div className="">
             <main className="">
-                <h1 className="">Snap</h1>
-
                 <form className="flex flex-row" onSubmit={handleSubmit}>
                     <label htmlFor="username" className="label">
                         Username:
@@ -33,12 +38,14 @@ export default function HomePage() {
                         onChange={handleChange}
                     />
                     <br />
-                    <Link
-                        className="btn btn-outline"
-                        href={`/profile/${handle}`}
-                    >
-                        {`Add User`}
-                    </Link>
+                    <button className="btn btn-outline">
+                        <Link className="" href={`/profile/${uid}`}>
+                            {`Add User`}
+                        </Link>
+                    </button>
+                    <button className="btn btn-outline btn-primary">
+                        {`Create New`}
+                    </button>
                 </form>
             </main>
         </div>
