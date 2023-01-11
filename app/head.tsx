@@ -1,7 +1,7 @@
 export default function Head() {
     return (
         <>
-            <title>Twitter Pentagon</title>
+            <title>SNAP</title>
             <link rel="icon" href="/favicon.ico" />
             <meta
                 name="viewport"

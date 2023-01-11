@@ -19,11 +19,9 @@ export default function HomePage() {
     return (
         <div className="">
             <main className="">
-                <h1 className="">Pentagon</h1>
-                <h1>
-                </h1>
+                <h1 className="">Snap</h1>
 
-                <form onSubmit={handleSubmit}>
+                <form className="flex flex-row" onSubmit={handleSubmit}>
                     <label htmlFor="username" className="label">
                         Username:
                     </label>

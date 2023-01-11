@@ -1,10 +1,15 @@
-import ProfilePage from "./ProfilePage";
+import { TwitterProfile } from "./TwitterProfile";
+import ProfilePage from "./UserProfilePage";
 
 export default async function Page() {
     return <ProfilePage />;
 }
 
-export async function fetchUser(handle: string) {
+export async function fetchUser(id: string) {
+    // TODO
+}
+
+export async function fetchTwitterUser(handle: string): Promise<TwitterProfile> {
     let response = await fetch("/api/get_user", {
         method: "POST",
         headers: {
@@ -13,5 +18,5 @@ export async function fetchUser(handle: string) {
         body: JSON.stringify(handle),
     });
     let user = await response.json();
-    return user;
+    return user as TwitterProfile;
 }

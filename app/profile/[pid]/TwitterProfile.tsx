@@ -1,18 +1,33 @@
 import Image from "next/image";
+import { fetchTwitterUser } from "./page";
+import { SocialProfile } from "./SocialProfile";
 
-export type User = {
-    name: string;
+export class TwitterProfile implements SocialProfile {
+    constructor(username: string) {
+        this.username = username
+    }
+    public render(): JSX.Element {
+        return <TwitterProfileCard {...this} />
+    }
+
+    public async get(): Promise<TwitterProfile> {
+        if (!this.username) console.log(`Couldn't get TwitterProfile: not initialized`);
+        let fetchData = async () => {
+            return await fetchTwitterUser(this.username);
+        };
+        return fetchData();
+    }
+
     username: string;
-    id: string;
-    following_count: number | undefined;
-    followers_count: number | undefined;
-    created_at: string | undefined;
-    profile_image_url: string | undefined;
+    name?: string;
+    id?: string;
+    following_count?: number;
+    followers_count?: number;
+    created_at?: string;
+    profile_image_url?: string;
 };
 
-export default function UserProfile(user: User) {
-    if (!user.profile_image_url) return null;
-
+export function TwitterProfileCard(profile: TwitterProfile) {
     return (
         <>
             <div className="card w-96 bg-base-100 shadow-xl rounded-xl">
@@ -20,37 +35,36 @@ export default function UserProfile(user: User) {
                     <div className="avatar">
                         <div className="w-20 rounded-full ring ring-offset-base-100 ring-offset-2">
                             <Image
-                                src={user.profile_image_url}
+                                src={profile.profile_image_url || ''}
                                 width="100"
                                 height="100"
-                                alt={"profile image"}
-                            />
+                                alt={"profile image"} />
                         </div>
                     </div>
-                    <h1 className="px-7">{user.name}'s Profile</h1>
+                    <h1 className="px-7">{profile.name}</h1>
                 </div>
                 <div className="card-body text-right">
                     <table>
                         <tbody>
                             <tr>
                                 <th>username:</th>
-                                <td>{user.username}</td>
+                                <td>{profile.username}</td>
                             </tr>
                             <tr>
                                 <th>id:</th>
-                                <td>{user.id}</td>
+                                <td>{profile.id}</td>
                             </tr>
                             <tr>
                                 <th>created:</th>
-                                <td>{user.created_at}</td>
+                                <td>{profile.created_at}</td>
                             </tr>
                             <tr>
                                 <th>followers:</th>
-                                <td>{user.followers_count}</td>
+                                <td>{profile.followers_count}</td>
                             </tr>
                             <tr>
                                 <th>following:</th>
-                                <td>{user.following_count}</td>
+                                <td>{profile.following_count}</td>
                             </tr>
                         </tbody>
                     </table>
