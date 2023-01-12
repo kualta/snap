@@ -1,8 +1,8 @@
 import { TwitterProfile } from "./TwitterProfile";
-import ProfilePage from "./UserProfilePage";
+import UserProfilePage from "./UserProfilePage";
 
 export default async function Page() {
-    return <ProfilePage />;
+    return <UserProfilePage />;
 }
 
 export async function fetchUser(id: string) {
