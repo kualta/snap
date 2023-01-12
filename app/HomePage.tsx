@@ -3,16 +3,17 @@
 import Link from "next/link";
 import { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "./profile/[pid]/UserProfile";
+import { User } from "./profile/[pid]/User";
 
 export default function HomePage() {
     const [id, setId] = useState('')
+    const router = useRouter()
 
     const openProfile = (e: any) => {
         e.preventDefault();
         if (!id) return
 
-        useRouter().push("/profile/" + id);
+        router.push("/profile/" + id);
     };
     const changeId = (e: any) => {
         setId(e.target.value);
@@ -29,7 +30,6 @@ export default function HomePage() {
                     className="input input-bordered"
                     onChange={changeId}
                 />
-                <br />
                 <button className="btn btn-outline">
                     <Link className="" href={`/profile/${id}`}>
                         {`Lookup`}
